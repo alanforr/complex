@@ -1,5 +1,6 @@
 (defproject complex "0.1.0"
-  :description "Wraps the Java commons-math3 Complex library."
+  :description "A Clojure library for doing complex number calculations that
+wraps the Java commons-math3 Complex library."
   :url ""
   :scm {:name "git"
             :url "https://github.com/username/artifact"}
