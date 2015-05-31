@@ -74,5 +74,5 @@
 
 (deftest powtest
   (are [x y] (= x y)
-       4.0 (pow 2 2)
+       (complex-number 4) (pow 2 2)
        (complex-number -3 4.000000000000002) (pow c1 2)))
