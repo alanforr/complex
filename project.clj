@@ -2,6 +2,7 @@
   :description "A Clojure library for doing fast complex number calculations that
 wraps the Java commons-math3 Complex library."
   :url "https://github.com/alanforr/complex"
+  :uberjar {:aot :all}
   :scm {:name "git"
             :url "https://github.com/alanforr/complex"}
   :license {:name "Eclipse Public License"

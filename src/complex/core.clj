@@ -1,5 +1,6 @@
 (ns complex.core
-  (:import [org.apache.commons.math3.complex Complex]))
+  (:import [org.apache.commons.math3.complex Complex])
+  (:refer-clojure :exclude [+ - * /]))
 
 (defn complex-number
   "Takes one or two numbers and returns a complex number.
