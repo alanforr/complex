@@ -6,7 +6,9 @@
   "Takes one or two numbers and returns a complex number.
    If only one argument is supplied then the argument is the real part of the complex number and the imaginary part is zero.
    If two arguments are supplied, then the first is the real part and the second is the imaginary part."
-  ([^double a] (Complex. a))
+  ([a] (if (number? a)
+         (Complex. (double a))
+         a))
   ([^double a ^double b] (Complex. a b)))
 
 (defn add2c "Adds two complex numbers."
@@ -29,30 +31,23 @@
   [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
   (.pow a b))
 
-(defn convert-to-complex "Converts the argument to a complex number if it is a number and leaves it unchanged otherwise."
-  [a]
-  (if (number? a)
-    (complex a)
-    a))
-
 (defn +
   "Adds two numbers, which may or may not be complex and produces a complex result."
   ([] 0)
-  ([a] (convert-to-complex a))
+  ([a] (complex a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
+     (let [ac (complex a)
+           bc (complex b)]
        (add2c ac bc)))
   ([a b & more] (reduce + (+  a b) more)))
-
 
 (defn *
   "Adds two numbers, which may or may not be complex and produces a complex result."
   ([] 0)
-  ([a] (convert-to-complex a))
+  ([a] (complex a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
+     (let [ac (complex a)
+           bc (complex b)]
        (multiply2c ac bc)))
   ([a b & more] (reduce * (*  a b) more)))
 
@@ -60,8 +55,8 @@
   "Subtracts the first argument from the second, either of which may or may not be complex and produces a complex result."
   ([a] (- 0 a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
+     (let [ac (complex a)
+           bc (complex b)]
        (subtract2c ac bc)))
   ([a b & more] (reduce - (- a b) more)))
 
@@ -69,21 +64,21 @@
   "Divides the first argument by the second, either of which may or may not be complex and produces a complex result."
   ([a] (/ 1 a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
+     (let [ac (complex a)
+           bc (complex b)]
        (divide2c ac bc)))
   ([a b & more] (reduce / (/ a b) more)))
 
 (defn pow
   "Converts numbers to complex numbers and then raises the first to the power of the second."
   [a b]
-   (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
+   (let [ac (complex a)
+           bc (complex b)]
        (powc ac bc)))
 
 (defn reciprocal "Returns the reciprocal of a number as a complex number."
   [a]
-  (.reciprocal (convert-to-complex a)))
+  (.reciprocal (complex a)))
 
 (defn conjugate
   "Returns the complex conjugate of a complex number."
