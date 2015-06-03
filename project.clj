@@ -3,7 +3,7 @@
 wraps the Java commons-math3 Complex library."
   :url "https://github.com/alanforr/complex"
   :uberjar {:aot :all}
-  :dev {:dependencies  [criterium "0.4.3"]}
+  :profiles {:dev {:dependencies  [[criterium "0.4.3"]]}}
   :scm {:name "git"
             :url "https://github.com/alanforr/complex"}
   :license {:name "Eclipse Public License"
