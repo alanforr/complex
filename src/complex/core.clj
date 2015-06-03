@@ -2,7 +2,7 @@
   (:import [org.apache.commons.math3.complex Complex])
   (:refer-clojure :exclude [+ - * /]))
 
-(defn complex-number
+(defn complex
   "Takes one or two numbers and returns a complex number.
    If only one argument is supplied then the argument is the real part of the complex number and the imaginary part is zero.
    If two arguments are supplied, then the first is the real part and the second is the imaginary part."
@@ -32,7 +32,7 @@
 (defn convert-to-complex "Converts the argument to a complex number if it is a number and leaves it unchanged otherwise."
   [a]
   (if (number? a)
-    (complex-number a)
+    (complex a)
     a))
 
 (defn +
@@ -132,70 +132,70 @@
   "Computes the sine of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.sin (complex-number x)))
+    (fn [x] (.sin (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.sin x))))
 
 (defn cos
  "Computes the cosine of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.cos (complex-number x)))
+    (fn [x] (.cos (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.cos x))))
 
 (defn tan
   "Computes the tangent of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.tan (complex-number x)))
+    (fn [x] (.tan (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.tan x))))
 
 (defn exp
  "Computes e^(the argument) where the argument may or may not be complex and returns a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.exp (complex-number x)))
+    (fn [x] (.exp (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.exp x))))
 
 (defn log
   "Computes the natural logarithm of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.log (complex-number x)))
+    (fn [x] (.log (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.log x))))
 
 (defn sinh
   "Computes the sinh of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.sinh (complex-number x)))
+    (fn [x] (.sinh (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.sinh x))))
 
 (defn cosh
   "Computes the cosh of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.cosh (complex-number x)))
+    (fn [x] (.cosh (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.cosh x))))
 
 (defn sqrt
   "Computes the square root of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.sqrt (complex-number x)))
+    (fn [x] (.sqrt (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.sqrt x))))
 
 (defn tanh
   "Computes the tanh of the argument, which may or may not be complex, as a complex number."
   [a]
   (if (number? a)
-    (fn [x] (.tanh (complex-number x)))
+    (fn [x] (.tanh (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.tanh x))))
 
 (defn sqrt1z
   "Computes sqrt(1-argument^2) as a complex number, where the argument may or may not be complex."
   [a]
   (if (number? a)
-    (fn [x] (.sqrt1z (complex-number x)))
+    (fn [x] (.sqrt1z (complex x)))
     (fn [^org.apache.commons.math3.complex.Complex x] (.sqrt1z x))))
 
 
