@@ -1,4 +1,4 @@
-(defproject complex "0.1.6"
+(defproject complex "0.1.7"
   :description "A Clojure library for doing fast complex number calculations that
 wraps the Java commons-math3 Complex library."
   :url "https://github.com/alanforr/complex"
