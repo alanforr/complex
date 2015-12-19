@@ -1,4 +1,6 @@
-(require '[criterium.core :as c])
+(ns test-ns
+  (:require [criterium.core :as c])
+  (:use complex.core))
 
 (def c1 (complex 1 2))
 (def c2 (complex 2 4))
