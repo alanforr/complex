@@ -7,3 +7,17 @@ pom.xml.asc
 *.class
 /.lein-*
 /.nrepl-port
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/libraries/Leiningen__clojure_complete_0_2_3.xml
+.idea/libraries/Leiningen__criterium_0_4_3.xml
+.idea/libraries/Leiningen__org_apache_commons_commons_math3_3_5.xml
+.idea/libraries/Leiningen__org_clojure_clojure_1_6_0.xml
+.idea/libraries/Leiningen__org_clojure_tools_nrepl_0_2_10.xml
+complex.iml
+.idea/replstate.xml

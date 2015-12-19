@@ -1,4 +1,7 @@
-(require '[criterium.core :as c])
+(ns bms
+  (:require [criterium.core :as c])
+  (:use [complex.core]
+        [clojure.test]))
 
 (def c1 (complex 1 2))
 (def c2 (complex 2 4))

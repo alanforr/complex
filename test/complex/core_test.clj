@@ -1,6 +1,6 @@
 (ns complex.core-test
-  (:require [clojure.test :refer :all]
-            [complex.core :refer :all]))
+  (:use [complex.core]
+        [clojure.test]))
 
 (def c1 (complex 1 2))
 
@@ -62,6 +62,16 @@
   (are [x y] (= x y)
        true (equals c1 c1)
        true (equals (/ c1 2) c10)))
+
+(deftest equals-eps-test
+  (is (true?
+        (equals (complex 1) (complex 1))))
+  (is (true?
+        (equals (complex 0.0) (complex 0.0))))
+  (is (true?
+        (equals (complex -0.0) (complex 0.0) 0.000000001)))
+  (is (false?
+        (equals (complex -0.0) (complex 0.0)))))
 
 (deftest imaginary-part-test
   (is (= 2.0 (imaginary-part c1))))
