@@ -89,9 +89,7 @@
   ([^Complex a ^Complex b]
    (.equals a b))
   ([^Complex a ^Complex b ^double eps]
-   (Complex/equals a b eps))
-  ([^Complex a ^Complex b ^int maxUlps]
-   (Complex/equals a b maxUlps)))
+   (Complex/equals a b eps)))
 
 (defn imaginary-part
   "Returns the imaginary part of a complex number."
