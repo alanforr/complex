@@ -85,7 +85,10 @@
   [^Complex a]
   (.conjugate a))
 
-(defn equals "Returns true if two complex numbers are equal, and false otherwise."
+(defn equals
+  "With two arguments, returns true if two complex numbers are equal, and false otherwise.
+  With three arguments, returns true if the difference between the respective parts of
+  the first two arguments is less than the third argument, which is a double."
   ([^Complex a ^Complex b]
    (.equals a b))
   ([^Complex a ^Complex b ^double eps]

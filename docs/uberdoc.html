@@ -2866,7 +2866,7 @@ net.brehaut.ClojureTools = (function (SH) {
     build_tree: build_tree
   };
 })(SyntaxHighlighter);
-</script><title>complex -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="https://github.com/alanforr/complex">complex</a></h1><h2 class="project-version">0.1.2</h2><br /><p>A Clojure library for doing fast complex number calculations that
+</script><title>complex -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="https://github.com/alanforr/complex">complex</a></h1><h2 class="project-version">0.1.8</h2><br /><p>A Clojure library for doing fast complex number calculations that
 wraps the Java commons-math3 Complex library.</p>
 </div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.6.0</td></tr><tr><td class="dep-name">org.apache.commons/commons-math3</td><td class="dotted"><hr /></td><td class="dep-version">3.5</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#complex.core">complex.core</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#complex.core" name="complex.core"><h1 class="project-name">complex.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns complex.core
@@ -2875,144 +2875,145 @@ wraps the Java commons-math3 Complex library.</p>
    If only one argument is supplied then the argument is the real part of the complex number and the imaginary part is zero.
    If two arguments are supplied, then the first is the real part and the second is the imaginary part.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn complex
-  ([^double a] (Complex. a))
+  ([a] (if (number? a)
+         (Complex. (double a))
+         a))
   ([^double a ^double b] (Complex. a b)))</pre></td></tr><tr><td class="docs"><p>Adds two complex numbers.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn add2c 
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
+  [^Complex a ^Complex b]
   (.add a b))</pre></td></tr><tr><td class="docs"><p>Multiplies two complex numbers.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn multiply2c  
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
+</td><td class="codes"><pre class="brush: clojure">(defn multiply2c 
+  [^Complex a ^Complex b]
   (.multiply a b))</pre></td></tr><tr><td class="docs"><p>Subtracts two complex numbers.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn subtract2c  
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
+</td><td class="codes"><pre class="brush: clojure">(defn subtract2c 
+  [^Complex a ^Complex b]
   (.subtract a b))</pre></td></tr><tr><td class="docs"><p>Divides two complex numbers.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn divide2c  
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
+</td><td class="codes"><pre class="brush: clojure">(defn divide2c 
+  [^Complex a ^Complex b]
   (.divide a b))</pre></td></tr><tr><td class="docs"><p>Raises the first argument to the power of the second, where both are complex numbers.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn powc  
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
-  (.pow a b))</pre></td></tr><tr><td class="docs"><p>Converts the argument to a complex number if it is a number and leaves it unchanged otherwise.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn convert-to-complex 
-  [a]
-  (if (number? a)
-    (complex a)
-    a))</pre></td></tr><tr><td class="docs"><p>Adds two numbers, which may or may not be complex and produces a complex result.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn powc 
+  [^Complex a ^Complex b]
+  (.pow a b))</pre></td></tr><tr><td class="docs"><p>Adds two numbers, which may or may not be complex and produces a complex result.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn +
   ([] 0)
-  ([a] (convert-to-complex a))
+  ([a] (complex a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
-       (add2c ac bc)))
-  ([a b &amp; more] (reduce + (+  a b) more)))</pre></td></tr><tr><td class="docs"><p>Adds two numbers, which may or may not be complex and produces a complex result.</p>
+   (let [ac (complex a)
+         bc (complex b)]
+     (add2c ac bc)))
+  ([a b &amp; more] (reduce + (+ a b) more)))</pre></td></tr><tr><td class="docs"><p>Adds two numbers, which may or may not be complex and produces a complex result.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn *
   ([] 0)
-  ([a] (convert-to-complex a))
+  ([a] (complex a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
-       (multiply2c ac bc)))
-  ([a b &amp; more] (reduce * (*  a b) more)))</pre></td></tr><tr><td class="docs"><p>Subtracts the first argument from the second, either of which may or may not be complex and produces a complex result.</p>
+   (let [ac (complex a)
+         bc (complex b)]
+     (multiply2c ac bc)))
+  ([a b &amp; more] (reduce * (* a b) more)))</pre></td></tr><tr><td class="docs"><p>Subtracts the first argument from the second, either of which may or may not be complex and produces a complex result.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn -
   ([a] (- 0 a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
-       (subtract2c ac bc)))
+   (let [ac (complex a)
+         bc (complex b)]
+     (subtract2c ac bc)))
   ([a b &amp; more] (reduce - (- a b) more)))</pre></td></tr><tr><td class="docs"><p>Divides the first argument by the second, either of which may or may not be complex and produces a complex result.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn /
   ([a] (/ 1 a))
   ([a b]
-     (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
-       (divide2c ac bc)))
+   (let [ac (complex a)
+         bc (complex b)]
+     (divide2c ac bc)))
   ([a b &amp; more] (reduce / (/ a b) more)))</pre></td></tr><tr><td class="docs"><p>Converts numbers to complex numbers and then raises the first to the power of the second.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn pow
   [a b]
-   (let [ac (convert-to-complex a)
-           bc (convert-to-complex b)]
-       (powc ac bc)))</pre></td></tr><tr><td class="docs"><p>Returns the reciprocal of a number as a complex number.</p>
+  (let [ac (complex a)
+        bc (complex b)]
+    (powc ac bc)))</pre></td></tr><tr><td class="docs"><p>Returns the reciprocal of a number as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn reciprocal 
   [a]
-  (.reciprocal (convert-to-complex a)))</pre></td></tr><tr><td class="docs"><p>Returns the complex conjugate of a complex number.</p>
+  (.reciprocal (complex a)))</pre></td></tr><tr><td class="docs"><p>Returns the complex conjugate of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn conjugate
-  [^org.apache.commons.math3.complex.Complex a]
-  (.conjugate a))</pre></td></tr><tr><td class="docs"><p>Returns true if two complex numbers are equal, and false otherwise.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn equals 
-  [^org.apache.commons.math3.complex.Complex a ^org.apache.commons.math3.complex.Complex b]
-  (.equals a b))</pre></td></tr><tr><td class="docs"><p>Returns the imaginary part of a complex number.</p>
+  [^Complex a]
+  (.conjugate a))</pre></td></tr><tr><td class="docs"><p>With two arguments, returns true if two complex numbers are equal, and false otherwise.
+  With three arguments, returns true if the difference between the respective parts of
+  the first two arguments is less than the third argument, which is a double.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn equals
+  ([^Complex a ^Complex b]
+   (.equals a b))
+  ([^Complex a ^Complex b ^double eps]
+   (Complex/equals a b eps)))</pre></td></tr><tr><td class="docs"><p>Returns the imaginary part of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn imaginary-part
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   (.getImaginary a))</pre></td></tr><tr><td class="docs"><p>Returns the real part of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn real-part
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   (.getReal a))</pre></td></tr><tr><td class="docs"><p>Returns the negative of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn negate
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   (.negate a))</pre></td></tr><tr><td class="docs"><p>Takes a complex number and returns its absolute value.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn abs 
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   (.abs a))</pre></td></tr><tr><td class="docs"><p>Gives the angle in the polar form of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn argument 
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   (Math/atan (/ (imaginary-part a) (real-part a))))</pre></td></tr><tr><td class="docs"><p>Gives a complex number in polar form in a map.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn polar-form
-  [^org.apache.commons.math3.complex.Complex a]
+  [^Complex a]
   {:magnitude (abs a) :argument (argument a)})</pre></td></tr><tr><td class="docs"><p>Computes the nth root of the first argument, which should be a complex number.
    The second argument should be a number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn nth-root
-  [^org.apache.commons.math3.complex.Complex a ^double n]
+  [^Complex a ^double n]
   (.nthRoot a n))</pre></td></tr><tr><td class="docs"><p>Computes the sine of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn sin
   [a]
   (if (number? a)
-    (fn [x] (.sin (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.sin x))))</pre></td></tr><tr><td class="docs"><p>Computes the cosine of the argument, which may or may not be complex, as a complex number.</p>
+    (.sin (complex a))
+    ((fn [^Complex x] (.sin x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the cosine of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn cos
   [a]
   (if (number? a)
-    (fn [x] (.cos (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.cos x))))</pre></td></tr><tr><td class="docs"><p>Computes the tangent of the argument, which may or may not be complex, as a complex number.</p>
+    (.cos (complex a))
+    ((fn [^Complex x] (.cos x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the tangent of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn tan
   [a]
   (if (number? a)
-    (fn [x] (.tan (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.tan x))))</pre></td></tr><tr><td class="docs"><p>Computes e^(the argument) where the argument may or may not be complex and returns a complex number.</p>
+    (.tan (complex a))
+    ((fn [^Complex x] (.tan x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes e^(the argument) where the argument may or may not be complex and returns a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn exp
   [a]
   (if (number? a)
-    (fn [x] (.exp (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.exp x))))</pre></td></tr><tr><td class="docs"><p>Computes the natural logarithm of the argument, which may or may not be complex, as a complex number.</p>
+    (.exp (complex a))
+    ((fn [^Complex x] (.exp x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the natural logarithm of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn log
   [a]
   (if (number? a)
-    (fn [x] (.log (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.log x))))</pre></td></tr><tr><td class="docs"><p>Computes the sinh of the argument, which may or may not be complex, as a complex number.</p>
+    (.log (complex a))
+    ((fn [^Complex x] (.log x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the sinh of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn sinh
   [a]
   (if (number? a)
-    (fn [x] (.sinh (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.sinh x))))</pre></td></tr><tr><td class="docs"><p>Computes the cosh of the argument, which may or may not be complex, as a complex number.</p>
+    (.sinh (complex a))
+    ((fn [^Complex x] (.sinh x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the cosh of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn cosh
   [a]
   (if (number? a)
-    (fn [x] (.cosh (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.cosh x))))</pre></td></tr><tr><td class="docs"><p>Computes the square root of the argument, which may or may not be complex, as a complex number.</p>
+    (.cosh (complex a))
+    ((fn [^Complex x] (.cosh x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the square root of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn sqrt
   [a]
   (if (number? a)
-    (fn [x] (.sqrt (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.sqrt x))))</pre></td></tr><tr><td class="docs"><p>Computes the tanh of the argument, which may or may not be complex, as a complex number.</p>
+    (.sqrt (complex a))
+    ((fn [^Complex x] (.sqrt x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes the tanh of the argument, which may or may not be complex, as a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn tanh
   [a]
   (if (number? a)
-    (fn [x] (.tanh (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.tanh x))))</pre></td></tr><tr><td class="docs"><p>Computes sqrt(1-argument^2) as a complex number, where the argument may or may not be complex.</p>
+    (.tanh (complex a))
+    ((fn [^Complex x] (.tanh x)) a)))</pre></td></tr><tr><td class="docs"><p>Computes sqrt(1-argument^2) as a complex number, where the argument may or may not be complex.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn sqrt1z
   [a]
   (if (number? a)
-    (fn [x] (.sqrt1z (complex x)))
-    (fn [^org.apache.commons.math3.complex.Complex x] (.sqrt1z x))))</pre></td></tr><tr><td class="docs"><p>Prints a complex number a+bi in the format (a,b).
+    (.sqrt1z (complex a))
+    ((fn [^Complex x] (.sqrt1z x)) a)))</pre></td></tr><tr><td class="docs"><p>Prints a complex number a+bi in the format (a,b).
    Converts other kinds of arguments to strings as usual.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn stringify
   [a]
