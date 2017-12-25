@@ -115,10 +115,10 @@
 
 (defn argument "Gives the angle in the polar form of a complex number."
   [^Complex a]
-  (let [re (c/real-part a)]
+  (let [re (real-part a)]
     (if (zero? re)
       0
-      (Math/atan (real-part (/ (imaginary-part cnum) re))))))
+      (Math/atan (real-part (/ (imaginary-part a) re))))))
 
 (defn polar-form
   "Gives a complex number in polar form in a map."
