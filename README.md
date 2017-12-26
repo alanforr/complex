@@ -2,6 +2,8 @@
 
 A Clojure library for doing calculations with complex numbers. Wraps the Java commons-math3 Complex library.
 
+[![Clojars Project](https://img.shields.io/clojars/v/complex.svg)](https://clojars.org/complex)
+
 ## Usage
 
 A complex number can be created by invoking the complex number function. With one argument the function produces a complex number in which only the real component is non-zero. With two arguments, the first argument is the real part, the second argument is the imaginary part:
