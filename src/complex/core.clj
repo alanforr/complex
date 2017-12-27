@@ -117,10 +117,13 @@
   (if (number? a)
     0
     ((fn [^Complex b]
-      (let [re (real-part b)]
-        (if (zero? re)
-          0
-          (Math/atan (real-part (/ (imaginary-part b) re)))))) a)))
+      (let [re (real-part b)
+            im (imaginary-part b)]
+        (cond
+          (and (zero? re) (zero? im)) 0
+          (and (zero? re) (> im 0)) (real-part (/ Math/PI 2))
+          (and (zero? re) (< im 0)) (real-part (/ (* 3 Math/PI) 2))
+          :else (Math/atan (real-part (/ im re)))))) a)))
 
 (defn polar-form
   "Gives a complex number in polar form in a map."
