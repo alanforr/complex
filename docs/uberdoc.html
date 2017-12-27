@@ -2866,7 +2866,7 @@ net.brehaut.ClojureTools = (function (SH) {
     build_tree: build_tree
   };
 })(SyntaxHighlighter);
-</script><title>complex -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="https://github.com/alanforr/complex">complex</a></h1><h2 class="project-version">0.1.8</h2><br /><p>A Clojure library for doing fast complex number calculations that
+</script><title>complex -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="https://github.com/alanforr/complex">complex</a></h1><h2 class="project-version">0.1.11</h2><br /><p>A Clojure library for doing fast complex number calculations that
 wraps the Java commons-math3 Complex library.</p>
 </div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.6.0</td></tr><tr><td class="dep-name">org.apache.commons/commons-math3</td><td class="dotted"><hr /></td><td class="dep-version">3.5</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#complex.core">complex.core</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#complex.core" name="complex.core"><h1 class="project-name">complex.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns complex.core
@@ -2950,17 +2950,28 @@ wraps the Java commons-math3 Complex library.</p>
   (.getReal a))</pre></td></tr><tr><td class="docs"><p>Returns the negative of a complex number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn negate
   [^Complex a]
-  (.negate a))</pre></td></tr><tr><td class="docs"><p>Takes a complex number and returns its absolute value.</p>
+  (.negate a))</pre></td></tr><tr><td class="docs"><p>Takes a complex or real number and returns its absolute value.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn abs 
-  [^Complex a]
-  (.abs a))</pre></td></tr><tr><td class="docs"><p>Gives the angle in the polar form of a complex number.</p>
+  [a]
+  (if (number? a)
+    (.abs (complex a))
+    ((fn [^Complex x] (.abs x)) a)))</pre></td></tr><tr><td class="docs"><p>Gives the angle in the polar form of a number that may be complex or real.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn argument 
-  [^Complex a]
-  (Math/atan (/ (imaginary-part a) (real-part a))))</pre></td></tr><tr><td class="docs"><p>Gives a complex number in polar form in a map.</p>
+  [a]
+  (if (number? a)
+    0
+    ((fn [^Complex b]
+      (let [re (real-part b)
+            im (imaginary-part b)]
+        (cond
+          (and (zero? re) (zero? im)) 0
+          (and (zero? re) (&gt; im 0)) (real-part (/ Math/PI 2))
+          (and (zero? re) (&lt; im 0)) (real-part (/ (* 3 Math/PI) 2))
+          :else (Math/atan (real-part (/ im re)))))) a)))</pre></td></tr><tr><td class="docs"><p>Gives a complex number in polar form in a map.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn polar-form
   [^Complex a]
   {:magnitude (abs a) :argument (argument a)})</pre></td></tr><tr><td class="docs"><p>Computes the nth root of the first argument, which should be a complex number.
-   The second argument should be a number.</p>
+   The second argument should be a real number.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn nth-root
   [^Complex a ^double n]
   (.nthRoot a n))</pre></td></tr><tr><td class="docs"><p>Computes the sine of the argument, which may or may not be complex, as a complex number.</p>

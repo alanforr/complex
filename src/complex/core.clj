@@ -109,11 +109,14 @@
   [^Complex a]
   (.negate a))
 
-(defn abs "Takes a complex number and returns its absolute value."
-  [^Complex a]
-  (.abs a))
+(defn abs "Takes a complex or real number and returns its absolute value."
+  [a]
+  (if (number? a)
+    (.abs (complex a))
+    ((fn [^Complex x] (.abs x)) a)))
 
-(defn argument [a] "Gives the angle in the polar form of a number that may or may not be complex."
+(defn argument "Gives the angle in the polar form of a number that may be complex or real."
+  [a]
   (if (number? a)
     0
     ((fn [^Complex b]
@@ -132,7 +135,7 @@
 
 (defn nth-root
   "Computes the nth root of the first argument, which should be a complex number.
-   The second argument should be a number."
+   The second argument should be a real number."
   [^Complex a ^double n]
   (.nthRoot a n))
 
