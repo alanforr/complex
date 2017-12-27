@@ -113,12 +113,14 @@
   [^Complex a]
   (.abs a))
 
-(defn argument "Gives the angle in the polar form of a complex number."
-  [^Complex a]
-  (let [re (real-part a)]
-    (if (zero? re)
-      0
-      (Math/atan (real-part (/ (imaginary-part a) re))))))
+(defn argument [a] "Gives the angle in the polar form of a number that may or may not be complex."
+  (if (number? a)
+    0
+    ((fn [^Complex b]
+      (let [re (real-part b)]
+        (if (zero? re)
+          0
+          (Math/atan (real-part (/ (imaginary-part b) re)))))) a)))
 
 (defn polar-form
   "Gives a complex number in polar form in a map."
