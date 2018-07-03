@@ -42,7 +42,7 @@
   ([a b & more] (reduce + (+ a b) more)))
 
 (defn *
-  "Adds two numbers, which may or may not be complex and produces a complex result."
+  "Multiplies two numbers, which may or may not be complex and produces a complex result."
   ([] 0)
   ([a] (complex a))
   ([a b]

@@ -2901,7 +2901,7 @@ wraps the Java commons-math3 Complex library.</p>
    (let [ac (complex a)
          bc (complex b)]
      (add2c ac bc)))
-  ([a b &amp; more] (reduce + (+ a b) more)))</pre></td></tr><tr><td class="docs"><p>Adds two numbers, which may or may not be complex and produces a complex result.</p>
+  ([a b &amp; more] (reduce + (+ a b) more)))</pre></td></tr><tr><td class="docs"><p>Multiplies two numbers, which may or may not be complex and produces a complex result.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn *
   ([] 0)
   ([a] (complex a))
